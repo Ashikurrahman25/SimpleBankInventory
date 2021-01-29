@@ -78,6 +78,7 @@
         const depositButton = document.getElementById("deposit");
         depositButton.addEventListener('click', function(){
             const depositAmount = document.getElementById("deposit-amount").value;
+            if(depositAmount == "") return;
             const depositConverted = parseFloat(depositAmount);
 
             updateSpanText("currentBalance",depositConverted);
@@ -89,17 +90,18 @@
 
         const withdrawButton = document.getElementById("withdraw");
         withdrawButton.addEventListener('click', function(){
+
             const withdrawAmount = document.getElementById("withdraw-amount").value;
-            const withdrawConverted = parseFloat(withdrawAmount);
-
-            updateSpanText("currentWithdraw",withdrawConverted);
-
             const currentBalance = document.getElementById("currentBalance").innerText;
             const currentBalanceConverted = parseFloat(currentBalance);
+            const withdrawConverted = parseFloat(withdrawAmount);
             const totalBalance = currentBalanceConverted - withdrawConverted;
 
-            document.getElementById("currentBalance").innerText = totalBalance;
 
+            if(withdrawAmount == "" || currentBalanceConverted == 0) return;
+
+            updateSpanText("currentWithdraw",withdrawConverted);
+            document.getElementById("currentBalance").innerText = totalBalance;
             document.getElementById("withdraw-amount").value = "";
         });
 
